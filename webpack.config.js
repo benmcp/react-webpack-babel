@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var path = require('path');
 var loaders = require('./webpack.loaders');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const HOST = process.env.HOST || "127.0.0.1";
 const PORT = process.env.PORT || "8888";
@@ -15,14 +16,13 @@ loaders.push({
 		'css'
 	]
 });
+
 // local scss modules
 loaders.push({
 	test: /[\/\\]src[\/\\].*\.scss/,
-	loaders: [
-		'style?sourceMap',
-		'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-		'sass'
-	]
+	loader: ExtractTextPlugin.extract(
+	 '!css!sass!sass-bulk-import'
+	)
 });
 
 // local css modules
@@ -70,5 +70,8 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: './src/template.html'
 		}),
+		new ExtractTextPlugin('style.css', {
+			allChunks: true
+		})
 	]
 };
