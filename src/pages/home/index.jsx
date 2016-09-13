@@ -1,6 +1,6 @@
 import React from 'react';
-import { render } from 'react-dom'
-import { Router, browserHistory } from 'react-router'
+import { render } from 'react-dom';
+import { Link } from 'react-router';
 import styles from '../../css/main.scss';
 
 export default class App extends React.Component {
@@ -8,8 +8,8 @@ export default class App extends React.Component {
     return (
       <div>
         <h1>It Works!</h1>
-        <p>Global bootstrap css import works too as you can see on the following button.</p>
-        <p><a className="btn btn-primary btn-lg">Enjoy!</a></p>
+        <p>index page</p>
+        <Link to="/about">About</Link>
       </div>
     )
   }
